@@ -32,9 +32,9 @@ myLibrary.push(book5);
 console.log(myLibrary);
 
 const wrapper = document.getElementById("wrapper");
-const box = document.createElement("div");
-box.classList.add("box");
-wrapper.appendChild(box);
+const cardContainer = document.createElement("div");
+cardContainer.classList.add("card-container");
+wrapper.appendChild(cardContainer);
 
 myLibrary.forEach((item) => {
   const card = document.createElement("div");
@@ -42,19 +42,34 @@ myLibrary.forEach((item) => {
   const author = document.createElement("p");
   const pages = document.createElement("p");
   const read = document.createElement("p");
+
   title.textContent = item.title;
   author.textContent = item.author;
   pages.textContent = item.pages + " pages";
   read.textContent = item.read ? "Read" : "Not read yet";
+
   card.appendChild(title);
   card.appendChild(author);
   card.appendChild(pages);
   card.appendChild(read);
-  box.appendChild(card);
+  cardContainer.appendChild(card);
+
   card.classList.add("card");
   title.classList.add("title");
   author.classList.add("author");
+  pages.classList.add("pages");
+  read.classList.add("read");
+
   if (read.textContent.includes("Not")) {
     read.classList.toggle("text-red");
   }
 });
+
+const buttonContainer = document.createElement("div");
+buttonContainer.classList.add("button-container");
+const buttonOpenModal = document.createElement("button");
+buttonOpenModal.classList.add("button-open-modal");
+buttonOpenModal.textContent = "New Book";
+wrapper.appendChild(buttonContainer);
+buttonContainer.appendChild(buttonOpenModal);
+buttonContainer.style.alignSelf = "flex-start";
