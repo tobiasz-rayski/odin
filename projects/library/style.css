@@ -30,6 +30,7 @@ body {
   padding: 1rem 1.5rem;
   border-radius: 1rem;
   box-shadow: 3px 1px 8px rgba(8, 38, 66, 0.2);
+  position: relative;
 }
 
 .card p {
@@ -97,5 +98,27 @@ input {
   top: 2rem;
   right: 2rem;
   font-size: 2rem;
+  cursor: pointer;
+}
+
+.read-button-on {
+  width: 12px;
+  height: 12px;
+  background-color: rgb(18, 170, 18);
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border-radius: 2rem;
+  cursor: pointer;
+}
+
+.read-button-off {
+  width: 12px;
+  height: 12px;
+  background-color: rgb(197, 224, 197);
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border-radius: 2rem;
   cursor: pointer;
 }

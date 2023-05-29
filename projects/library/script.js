@@ -69,6 +69,7 @@ function addBookToLibrary(item) {
   const author = document.createElement("p");
   const pages = document.createElement("p");
   const read = document.createElement("p");
+  const readButton = document.createElement("div");
 
   title.textContent = item.title;
   author.textContent = item.author;
@@ -79,16 +80,30 @@ function addBookToLibrary(item) {
   card.appendChild(author);
   card.appendChild(pages);
   card.appendChild(read);
+  card.appendChild(readButton);
 
   card.classList.add("card");
   title.classList.add("title");
   author.classList.add("author");
   pages.classList.add("pages");
   read.classList.add("read");
+  item.read
+    ? readButton.classList.add("read-button-on")
+    : readButton.classList.add("read-button-off");
 
   if (!item.read) {
     read.classList.add("text-red");
   }
 
   cardContainer.appendChild(card);
+
+  readButton.addEventListener("click", function () {
+    if (readButton.classList.contains("read-button-on")) {
+      readButton.classList.remove("read-button-on");
+      readButton.classList.add("read-button-off");
+    } else {
+      readButton.classList.remove("read-button-off");
+      readButton.classList.add("read-button-on");
+    }
+  });
 }
