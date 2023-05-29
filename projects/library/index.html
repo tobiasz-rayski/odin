@@ -28,9 +28,19 @@
             <input type="number" id="book-pages" name="book_pages" />
             <label for="book-read">Read?</label>
             <div class="radio-options">
-              <input type="radio" id="yes-radio" name="book_read" value="yes" />
+              <input
+                type="radio"
+                id="yes-radio"
+                name="book_read"
+                value="true"
+              />
               <label for="yes-radio">Yes</label>
-              <input type="radio" id="no-radio" name="book_read" value="yes" />
+              <input
+                type="radio"
+                id="no-radio"
+                name="book_read"
+                value="false"
+              />
               <label for="no-radio">No</label>
             </div>
             <label for="book-genre">Genre</label>
@@ -42,7 +52,7 @@
               <option value="sci-fi" id="book-genre" selected>Sci-Fi</option>
               <option value="Romance" id="book-genre">Romance</option>
             </select>
-            <button type="button" id="add">Add Book</button>
+            <button type="button" id="addButton">Add</button>
           </form>
           <div id="close-modal" class="close-modal">&times;</div>
         </div>

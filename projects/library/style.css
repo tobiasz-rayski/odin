@@ -87,7 +87,7 @@ input {
   display: flex;
 }
 
-#add {
+#addButton {
   margin-top: 2rem;
   display: block;
 }
