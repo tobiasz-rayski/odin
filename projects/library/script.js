@@ -11,11 +11,11 @@ Book.prototype.read = function () {
   return read ? "has been read" : "not read yet";
 };
 
-Book.prototype.info = function () {
-  return `${this.title} by ${this.author}, ${
-    this.pages
-  } pages, ${this.read()}.`;
-};
+// Book.prototype.info = function () {
+//   return `${this.title} by ${this.author}, ${
+//     this.pages
+//   } pages, ${this.read()}.`;
+// };
 
 const book1 = new Book("The Great Gatsby", "F. Scott Fitzgerald", 180, true);
 const book2 = new Book("To Kill a Mockingbird", "Harper Lee", 281, false);
@@ -44,8 +44,8 @@ myLibrary.forEach((item) => {
   const read = document.createElement("p");
   title.textContent = item.title;
   author.textContent = item.author;
-  pages.textContent = item.pages;
-  read.textContent = item.read;
+  pages.textContent = item.pages + " pages";
+  read.textContent = item.read ? "Read" : "Not read yet";
   card.appendChild(title);
   card.appendChild(author);
   card.appendChild(pages);
@@ -53,4 +53,8 @@ myLibrary.forEach((item) => {
   box.appendChild(card);
   card.classList.add("card");
   title.classList.add("title");
+  author.classList.add("author");
+  if (read.textContent.includes("Not")) {
+    read.classList.toggle("text-red");
+  }
 });

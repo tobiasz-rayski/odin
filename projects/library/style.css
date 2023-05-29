@@ -36,3 +36,11 @@ body {
 .title {
   font-weight: 600;
 }
+
+.author {
+  font-style: italic;
+}
+
+.text-red {
+  color: red;
+}
