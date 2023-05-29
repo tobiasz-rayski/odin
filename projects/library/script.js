@@ -57,6 +57,12 @@ addButton.addEventListener("click", (event) => {
   closeModal();
 });
 
+window.addEventListener("keydown", (event) => {
+  if (event.keyCode === 27) {
+    closeModal();
+  }
+});
+
 function addBookToLibrary(item) {
   const card = document.createElement("div");
   const title = document.createElement("p");
