@@ -65,11 +65,27 @@ myLibrary.forEach((item) => {
   }
 });
 
+const modal = document.getElementById("modal");
 const buttonContainer = document.createElement("div");
 buttonContainer.classList.add("button-container");
 const buttonOpenModal = document.createElement("button");
+const buttonCloseModal = document.getElementById("close-modal");
 buttonOpenModal.classList.add("button-open-modal");
 buttonOpenModal.textContent = "New Book";
+
 wrapper.appendChild(buttonContainer);
 buttonContainer.appendChild(buttonOpenModal);
 buttonContainer.style.alignSelf = "flex-start";
+buttonOpenModal.addEventListener("click", () => {});
+
+buttonOpenModal.addEventListener("click", () => {
+  modal.style.display = "block";
+});
+
+modal.addEventListener("click", (event) => {
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+});
+
+buttonCloseModal.addEventListener("click");
