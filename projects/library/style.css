@@ -6,7 +6,33 @@ body {
 #wrapper {
   margin: auto;
   margin-top: 2rem;
-  max-width: 80%;
-  background-color: #fcf9ee;
+  width: 80vw;
   height: 80vh;
+}
+
+.box {
+  background-color: #fafafa;
+  border-radius: 1rem;
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.card {
+  background-color: rgb(255, 255, 255);
+  height: 100px;
+  width: 200px;
+  color: rgb(3, 11, 46);
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 3px 1px 8px rgba(8, 38, 66, 0.2);
+}
+
+.card p {
+  margin-bottom: 0.25rem;
+}
+
+.title {
+  font-weight: 600;
 }

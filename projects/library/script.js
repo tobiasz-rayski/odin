@@ -29,19 +29,28 @@ myLibrary.push(book3);
 myLibrary.push(book4);
 myLibrary.push(book5);
 
-// function addBook() {
-//   const title = prompt("TITLE");
-//   const author = prompt("AUTHOR");
-//   const pages = prompt("PAGES");
-//   const read = prompt("READ?");
-//   const checkRead = read.toLowerCase() === "yes";
-//   const book = new Book(title, author, pages, checkRead);
-//   myLibrary.push(book);
-// }
-
 console.log(myLibrary);
 
-function addBook() {
-  const book = new Book("The Great Gatsby", "F. Scott Fitzgerald", 180);
-  myLibrary.push(book);
-}
+const wrapper = document.getElementById("wrapper");
+const box = document.createElement("div");
+box.classList.add("box");
+wrapper.appendChild(box);
+
+myLibrary.forEach((item) => {
+  const card = document.createElement("div");
+  const title = document.createElement("p");
+  const author = document.createElement("p");
+  const pages = document.createElement("p");
+  const read = document.createElement("p");
+  title.textContent = item.title;
+  author.textContent = item.author;
+  pages.textContent = item.pages;
+  read.textContent = item.read;
+  card.appendChild(title);
+  card.appendChild(author);
+  card.appendChild(pages);
+  card.appendChild(read);
+  box.appendChild(card);
+  card.classList.add("card");
+  title.classList.add("title");
+});
