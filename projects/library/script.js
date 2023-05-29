@@ -88,4 +88,8 @@ modal.addEventListener("click", (event) => {
   }
 });
 
-buttonCloseModal.addEventListener("click");
+buttonCloseModal.addEventListener("click", (event) => {
+  if (event.target === buttonCloseModal) {
+    modal.style.display = "none";
+  }
+});
