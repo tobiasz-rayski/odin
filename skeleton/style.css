@@ -2,11 +2,3 @@ body {
   font-family: "Inter", system-ui, "Segoe UI", Roboto, Helvetica, Arial,
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
-
-#wrapper {
-  margin: auto;
-  margin-top: 2rem;
-  max-width: 80%;
-  background-color: #fcf9ee;
-  height: 80vh;
-}
