@@ -77,9 +77,10 @@ input {
 
 .modal-content {
   background-color: #f7f7f7;
+  background-color: #f7f7f7;
   margin: 6rem auto;
-  padding: 2rem;
-  width: 30%;
+  padding: 4rem 2.5rem;
+  width: fit-content;
   border-radius: 1rem;
   position: relative;
   transform: scale(0);
@@ -108,9 +109,9 @@ option {
 
 .close-modal {
   position: absolute;
-  top: 2rem;
-  right: 2rem;
-  font-size: 2rem;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.25rem;
   cursor: pointer;
 }
 
@@ -151,4 +152,8 @@ option {
 
 .button-open-modal:active {
   transform: translate(1px, 1px);
+}
+
+#add-book-form > div > label:nth-child(1) {
+  margin-right: 10px;
 }
