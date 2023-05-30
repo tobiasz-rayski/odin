@@ -5,7 +5,7 @@ body {
 
 input {
   border: none;
-  border-radius: 2rem;
+  border-radius: 1rem;
 }
 
 #wrapper {
@@ -115,7 +115,7 @@ input {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  border-radius: 2rem;
+  border-radius: 1rem;
   cursor: pointer;
 }
 
@@ -129,4 +129,19 @@ input {
   left: 1.25rem;
   font-size: 1.25rem;
   cursor: pointer;
+}
+
+.button-open-modal {
+  background: none;
+  background-color: white;
+  border: none;
+  box-shadow: 1px 1px 1px rgba(8, 38, 66, 0.2);
+  padding: 1rem 1.5rem;
+  border-radius: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.button-open-modal:active {
+  transform: translate(1px, 1px);
 }
