@@ -14,10 +14,10 @@ const buttonContainer = document.createElement("div");
 const buttonOpenModal = document.createElement("button");
 const wrapper = document.getElementById("wrapper");
 const modal = document.getElementById("modal");
-buttonOpenModal.textContent = "New Book";
 const buttonCloseModal = document.getElementById("close-modal");
 const addButton = document.getElementById("addButton");
 const modalContent = document.getElementById("modal-cont");
+buttonOpenModal.textContent = "New Book";
 
 buttonContainer.classList.add("button-container");
 buttonOpenModal.classList.add("button-open-modal");
@@ -58,23 +58,7 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-addButton.addEventListener("click", (event) => {
-  event.preventDefault();
-  const title = document.getElementById("book-title").value;
-  const author = document.getElementById("book-author").value;
-  const pages = document.getElementById("book-pages").value;
-  const read =
-    document.querySelector(`input[name="book_read"]:checked`).value === "true";
-  const idNum = idCounter;
-  idCounter++;
-  const book = new Book(title, author, pages, read, idNum);
-  myLibrary.push(book);
-
-  addBookToLibrary(book);
-  closeModal();
-});
-
-function addBookToLibrary(book) {
+function createCard(book) {
   let card = document.createElement("div");
   const title = document.createElement("p");
   const author = document.createElement("p");
@@ -88,6 +72,10 @@ function addBookToLibrary(book) {
   pages.textContent = book.pages + " pages";
   read.textContent = book.read ? "Read" : "Not read yet";
   deleteCard.innerHTML = "&times";
+
+  if (!book.read) {
+    readButton.classList.add("switch-off");
+  }
 
   card.setAttribute("data-id", book.idNum);
 
@@ -105,11 +93,6 @@ function addBookToLibrary(book) {
   read.classList.add("read");
   readButton.classList.add("read-button");
   deleteCard.classList.add("delete-card");
-  cardContainer.appendChild(card);
-
-  if (!book.read) {
-    readButton.classList.add("switch-off");
-  }
 
   deleteCard.addEventListener("click", (event) => {
     const parent = event.target.parentNode;
@@ -124,9 +107,33 @@ function addBookToLibrary(book) {
     myLibrary.forEach((book) => {
       if (book.idNum === dataId) {
         book.read = !book.read;
+        readButton.classList.toggle("switch-off");
       }
     });
-    readButton.classList.toggle("switch-off");
-    read.textContent = book.read ? "Read" : "Not read yet";
   });
+
+  return card;
 }
+
+function addBookToLibrary(book) {
+  let card = createCard(book);
+  cardContainer.appendChild(card);
+
+  if (!book.read) {
+    readButton.classList.add("switch-off");
+  }
+}
+
+addButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  const title = document.getElementById("book-title").value;
+  const author = document.getElementById("book-author").value;
+  const pages = document.getElementById("book-pages").value;
+  const read =
+    document.querySelector(`input[name="book_read"]:checked`).value === "true";
+  const idNum = idCounter;
+  idCounter++;
+  const book = new Book(title, author, pages, read, idNum);
+  myLibrary.push(book);
+  addBookToLibrary(book);
+});
