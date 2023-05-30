@@ -6,6 +6,11 @@ body {
 input {
   border: none;
   border-radius: 1rem;
+  margin-bottom: 1rem;
+  display: block;
+  padding: 1rem;
+  line-height: 1rem;
+  font-family: inherit;
 }
 
 #wrapper {
@@ -84,11 +89,11 @@ input {
 label {
   display: block;
   margin-bottom: 0.25rem;
+  font-family: inherit;
 }
 
-input {
-  margin-bottom: 1rem;
-  display: block;
+option {
+  font-family: inherit;
 }
 
 .radio-options {
@@ -98,6 +103,7 @@ input {
 #addButton {
   margin-top: 2rem;
   display: block;
+  font-family: inherit;
 }
 
 .close-modal {
@@ -140,6 +146,7 @@ input {
   border-radius: 1rem;
   font-size: 1rem;
   font-weight: 500;
+  font-family: inherit;
 }
 
 .button-open-modal:active {
