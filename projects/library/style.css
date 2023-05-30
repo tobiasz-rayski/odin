@@ -3,6 +3,11 @@ body {
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
+input {
+  border: none;
+  border-radius: 2rem;
+}
+
 #wrapper {
   margin: auto;
   margin-top: 2rem;
@@ -66,12 +71,14 @@ body {
 }
 
 .modal-content {
-  background-color: #fff;
+  background-color: #f7f7f7;
   margin: 6rem auto;
   padding: 2rem;
   width: 30%;
   border-radius: 1rem;
   position: relative;
+  transform: scale(0);
+  transition: transform 0.3s ease;
 }
 
 label {

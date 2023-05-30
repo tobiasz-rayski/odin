@@ -17,6 +17,7 @@ const modal = document.getElementById("modal");
 buttonOpenModal.textContent = "New Book";
 const buttonCloseModal = document.getElementById("close-modal");
 const addButton = document.getElementById("addButton");
+const modalContent = document.getElementById("modal-cont");
 
 buttonContainer.classList.add("button-container");
 buttonOpenModal.classList.add("button-open-modal");
@@ -28,10 +29,15 @@ buttonContainer.appendChild(buttonOpenModal);
 
 function closeModal() {
   modal.style.display = "none";
+  modalContent.style.transform = "scale(0)";
 }
 
 buttonOpenModal.addEventListener("click", () => {
   modal.style.display = "block";
+
+  setTimeout(() => {
+    modalContent.style.transform = "scale(1)";
+  }, 10);
 });
 
 modal.addEventListener("click", (event) => {
