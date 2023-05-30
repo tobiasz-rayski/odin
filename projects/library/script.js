@@ -97,13 +97,30 @@ function addBookToLibrary(book) {
   author.classList.add("author");
   pages.classList.add("pages");
   read.classList.add("read");
+  readButton.classList.add("read-button");
   deleteCard.classList.add("delete-card");
   cardContainer.appendChild(card);
+
+  if (!book.read) {
+    readButton.classList.add("switch-off");
+  }
 
   deleteCard.addEventListener("click", (event) => {
     const parent = event.target.parentNode;
     const dataId = Number(parent.getAttribute("data-id"));
     parent.remove();
     myLibrary = myLibrary.filter((book) => book.idNum !== dataId);
+  });
+
+  readButton.addEventListener("click", (event) => {
+    const parent = event.target.parentNode;
+    const dataId = Number(parent.getAttribute("data-id"));
+    myLibrary.forEach((book) => {
+      if (book.idNum === dataId) {
+        book.read = !book.read;
+      }
+    });
+    readButton.classList.toggle("switch-off");
+    read.textContent = book.read ? "Read" : "Not read yet";
   });
 }

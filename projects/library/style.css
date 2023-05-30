@@ -101,7 +101,7 @@ input {
   cursor: pointer;
 }
 
-/* .read-button-on {
+.read-button {
   width: 12px;
   height: 12px;
   background-color: rgb(18, 170, 18);
@@ -110,7 +110,11 @@ input {
   right: 1rem;
   border-radius: 2rem;
   cursor: pointer;
-} */
+}
+
+.switch-off {
+  background-color: rgb(197, 57, 57);
+}
 
 .delete-card {
   position: absolute;
