@@ -11,6 +11,7 @@ input {
   padding: 1rem;
   line-height: 1rem;
   font-family: inherit;
+  outline: none;
 }
 
 #wrapper {
@@ -23,7 +24,6 @@ input {
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
 }
 
 .card-container {
@@ -89,8 +89,10 @@ input {
 
 label {
   display: block;
-  margin-bottom: 0.25rem;
   font-family: inherit;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
 }
 
 option {
@@ -99,12 +101,18 @@ option {
 
 .radio-options {
   display: flex;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
 }
 
 #addButton {
-  margin-top: 2rem;
   display: block;
   font-family: inherit;
+  margin: auto;
+  margin-top: 2rem;
+  width: 100%;
 }
 
 .close-modal {
@@ -138,7 +146,8 @@ option {
   cursor: pointer;
 }
 
-.button-open-modal {
+.button-open-modal,
+#addButton {
   background: none;
   background-color: white;
   border: none;
@@ -156,4 +165,15 @@ option {
 
 #add-book-form > div > label:nth-child(1) {
   margin-right: 10px;
+}
+
+.button-container {
+  margin: auto;
+}
+
+#checkbox {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  margin: 0;
 }

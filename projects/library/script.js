@@ -108,6 +108,7 @@ function createCard(book) {
       if (book.idNum === dataId) {
         book.read = !book.read;
         readButton.classList.toggle("switch-off");
+        read.textContent = book.read ? "Read" : "Not read yet";
       }
     });
   });
@@ -129,8 +130,8 @@ addButton.addEventListener("click", (event) => {
   const title = document.getElementById("book-title").value;
   const author = document.getElementById("book-author").value;
   const pages = document.getElementById("book-pages").value;
-  const read =
-    document.querySelector(`input[name="book_read"]:checked`).value === "true";
+  const checkbox = document.querySelector(`input[name="read-check"]`);
+  const read = checkbox.checked;
   const idNum = idCounter;
   idCounter++;
   const book = new Book(title, author, pages, read, idNum);

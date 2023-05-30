@@ -25,6 +25,7 @@
               id="book-title"
               name="book_title"
               placeholder="Title"
+              autocomplete="off"
             />
 
             <input
@@ -32,6 +33,7 @@
               id="book-author"
               name="book_author"
               placeholder="Author"
+              autocomplete="off"
             />
 
             <input
@@ -39,23 +41,16 @@
               id="book-pages"
               name="book_pages"
               placeholder="Pages"
+              autocomplete="off"
             />
             <div class="radio-options">
-              <label for="book-read">Read?</label>
+              <label for="book-read">Have you read it?</label>
               <input
-                type="radio"
-                id="yes-radio"
-                name="book_read"
-                value="true"
-              />
-              <label for="yes-radio">Yes</label>
-              <input
-                type="radio"
-                id="no-radio"
-                name="book_read"
+                type="checkbox"
+                name="read-check"
+                id="checkbox"
                 value="false"
               />
-              <label for="no-radio">No</label>
             </div>
             <label for="book-genre">Genre</label>
             <select name="Book">
