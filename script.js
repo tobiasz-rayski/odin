@@ -1,50 +1,32 @@
 const gameBoard = (function () {
-  const space = {
-    o: false,
-    x: false,
-  };
+  const gameBoard = new Array(9).fill(null);
+  let mark = "x";
 
-  let board;
-
-  const setUp = () => {
-    board = [];
-
-    while (board.length < 3) {
-      board.push([]);
-    }
-
-    for (row of board) {
-      while (row.length < 3) {
-        row.push({ ...space });
+  const randomFill = () => {
+    while (gameBoard.some((item) => item === null)) {
+      let random = Math.floor(Math.random() * 9);
+      if (gameBoard[random] === null) {
+        gameBoard[random] = mark;
+        mark = mark === "x" ? "o" : "x";
       }
     }
-
-    return board;
   };
 
-  const getBoard = () => {
-    return board;
+  const isWin = () => {
+    const winConditions = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
   };
 
-  return {
-    setUp,
-    getBoard,
-  };
+  return { gameBoard, randomFill, isWin };
 })();
 
-const createPlayer = (name, mark) => {
-  const getName = () => name;
-  const getMark = () => mark;
-  const placeMarker = (space) => {
-    const board = gameBoard.getBoard();
-    board[0][1][mark] = true;
-    console.log(board);
-  };
-
-  return { getName, getMark, placeMarker };
-};
-
-const player1 = createPlayer("Jeff", "x");
-
-gameBoard.setUp();
-player1.placeMarker();
+gameBoard.randomFill();
+console.log(gameBoard.gameBoard);
