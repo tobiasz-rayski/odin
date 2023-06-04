@@ -5,28 +5,46 @@ const gameBoard = (function () {
   };
 
   let board;
+
   const setUp = () => {
     board = [];
+
     while (board.length < 3) {
       board.push([]);
     }
 
     for (row of board) {
       while (row.length < 3) {
-        row.push(space);
+        row.push({ ...space });
       }
     }
+
     return board;
   };
 
   const getBoard = () => {
-    console.log(board);
+    return board;
   };
+
   return {
     setUp,
     getBoard,
   };
 })();
 
+const createPlayer = (name, mark) => {
+  const getName = () => name;
+  const getMark = () => mark;
+  const placeMarker = (space) => {
+    const board = gameBoard.getBoard();
+    board[0][1][mark] = true;
+    console.log(board);
+  };
+
+  return { getName, getMark, placeMarker };
+};
+
+const player1 = createPlayer("Jeff", "x");
+
 gameBoard.setUp();
-gameBoard.getBoard();
+player1.placeMarker();
