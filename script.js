@@ -89,7 +89,11 @@ const displayController = (function () {
     item.id = "space-" + index;
 
     item.addEventListener("click", function () {
-      gameBoard.placeMark(getPlayerTurn(), index);
+      if (getPlayerTurn() === player1) {
+        gameBoard.placeMark(getPlayerTurn(), index);
+        item.textContent = gameBoard.board[index].toUpperCase();
+      } else gameBoard.placeMark(getPlayerTurn(), index);
+      item.textContent = gameBoard.board[index].toUpperCase();
     });
   });
 })();
