@@ -76,8 +76,7 @@ player1.isTurn = true;
 
 // Check TIE
 
-/*
-gameBoard.placeMark(player1, 4);
+/* gameBoard.placeMark(player1, 4);
 gameBoard.placeMark(player2, 6);
 gameBoard.placeMark(player1, 8);
 gameBoard.placeMark(player2, 0);
@@ -85,8 +84,7 @@ gameBoard.placeMark(player1, 3);
 gameBoard.placeMark(player2, 5);
 gameBoard.placeMark(player1, 1);
 gameBoard.placeMark(player2, 7);
-gameBoard.placeMark(player1, 2);
-*/
+gameBoard.placeMark(player1, 2); */
 
 // Check WIN
 
@@ -102,23 +100,8 @@ gameBoard.placeMark(player2, 2);
 gameBoard.placeMark(player1, 7);
 */
 
-console.log(gameBoard.board.every((item) => item !== null));
-
 console.log(player1.score);
 console.log(player2.score);
-
 console.log(gameBoard.board);
 
-// gameBoard.reset();
-
-// const randomFill = () => {
-//   let mark = "x";
-//   while (board.some((item) => item === null)) {
-//     let random = Math.floor(Math.random() * 9);
-//     if (board[random] === null) {
-//       board[random] = mark;
-//       if (isWin(mark) === true) break;
-//       mark = mark === "x" ? "o" : "x";
-//     }
-//   }
-// };
+const displayController = (function () {})();
