@@ -17,9 +17,12 @@ const gameBoard = (function () {
       arr.every((index) => board.at(index) === mark)
     );
 
+    let full = board.every((item) => item !== null);
+
     if (win) {
-      console.log(`${mark} wins.`);
       return true;
+    } else if (full && !win) {
+      console.log("TIE");
     }
     return false;
   };
@@ -34,9 +37,15 @@ const gameBoard = (function () {
   };
 
   const placeMark = (player, space) => {
-    if (board[space] === null) {
+    const isLegalMove = player.isTurn === true && board[space] === null;
+
+    if (isLegalMove) {
       board[space] = player.mark;
-      isWin(player.mark);
+      if (!isWin(player.mark)) {
+        changeTurns();
+      } else {
+        player.score++;
+      }
     }
   };
 
@@ -49,22 +58,56 @@ const gameBoard = (function () {
   };
 })();
 
-const Player = (name, mark) => {
+const createPlayer = (name, mark) => {
   const isTurn = false;
+  const score = 0;
 
   return {
     name,
     mark,
     isTurn,
+    score,
   };
 };
 
-const player1 = Player("Jeff", "x");
-const player2 = Player("Tom", "o");
+const player1 = createPlayer("Jeff", "x");
+const player2 = createPlayer("Tom", "o");
 player1.isTurn = true;
 
-// gameBoard.placeMark(player1, 0);
-// console.log(gameBoard.board);
+// Check TIE
+
+/*
+gameBoard.placeMark(player1, 4);
+gameBoard.placeMark(player2, 6);
+gameBoard.placeMark(player1, 8);
+gameBoard.placeMark(player2, 0);
+gameBoard.placeMark(player1, 3);
+gameBoard.placeMark(player2, 5);
+gameBoard.placeMark(player1, 1);
+gameBoard.placeMark(player2, 7);
+gameBoard.placeMark(player1, 2);
+*/
+
+// Check WIN
+
+/*
+gameBoard.placeMark(player1, 4);
+gameBoard.placeMark(player2, 6);
+gameBoard.placeMark(player1, 8);
+gameBoard.placeMark(player2, 0);
+gameBoard.placeMark(player1, 3);
+gameBoard.placeMark(player2, 5);
+gameBoard.placeMark(player1, 1);
+gameBoard.placeMark(player2, 2);
+gameBoard.placeMark(player1, 7);
+*/
+
+console.log(gameBoard.board.every((item) => item !== null));
+
+console.log(player1.score);
+console.log(player2.score);
+
+console.log(gameBoard.board);
 
 // gameBoard.reset();
 
