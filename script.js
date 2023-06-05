@@ -70,38 +70,26 @@ const createPlayer = (name, mark) => {
   };
 };
 
+const getPlayerTurn = () => {
+  if (player1.isTurn) {
+    return player1;
+  } else {
+    return player2;
+  }
+};
+
 const player1 = createPlayer("Jeff", "x");
 const player2 = createPlayer("Tom", "o");
 player1.isTurn = true;
 
-// Check TIE
+const displayController = (function () {
+  const spaces = document.querySelectorAll(".space");
 
-/* gameBoard.placeMark(player1, 4);
-gameBoard.placeMark(player2, 6);
-gameBoard.placeMark(player1, 8);
-gameBoard.placeMark(player2, 0);
-gameBoard.placeMark(player1, 3);
-gameBoard.placeMark(player2, 5);
-gameBoard.placeMark(player1, 1);
-gameBoard.placeMark(player2, 7);
-gameBoard.placeMark(player1, 2); */
+  spaces.forEach((item, index) => {
+    item.id = "space-" + index;
 
-// Check WIN
-
-/*
-gameBoard.placeMark(player1, 4);
-gameBoard.placeMark(player2, 6);
-gameBoard.placeMark(player1, 8);
-gameBoard.placeMark(player2, 0);
-gameBoard.placeMark(player1, 3);
-gameBoard.placeMark(player2, 5);
-gameBoard.placeMark(player1, 1);
-gameBoard.placeMark(player2, 2);
-gameBoard.placeMark(player1, 7);
-*/
-
-console.log(player1.score);
-console.log(player2.score);
-console.log(gameBoard.board);
-
-const displayController = (function () {})();
+    item.addEventListener("click", function () {
+      gameBoard.placeMark(getPlayerTurn(), index);
+    });
+  });
+})();
