@@ -64,3 +64,16 @@ body {
   flex-direction: row;
   gap: 4rem;
 }
+
+.show {
+  transform: scale(1);
+}
+
+.hide {
+  display: none;
+  transform: scale(0);
+}
+
+.mark {
+  transition: transform 0.2s ease-in-out;
+}

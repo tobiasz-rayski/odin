@@ -70,9 +70,15 @@ const gameBoard = (function () {
     }
   };
 
+  const updateGameState = (index) => {
+    const currentPlayer = gameBoard.getCurrentPlayer();
+    gameBoard.placeMark(currentPlayer, index);
+  };
+
   return {
     getBoard,
     getCurrentPlayer,
+    updateGameState,
     placeMark,
     isWin,
     isTie,
@@ -81,9 +87,15 @@ const gameBoard = (function () {
 })();
 
 const displayController = (function () {
-  const updateGameState = (index) => {
+  const updateDisplay = (oMark, xMark) => {
     const currentPlayer = gameBoard.getCurrentPlayer();
-    gameBoard.placeMark(currentPlayer, index);
+    if (currentPlayer === player1) {
+      oMark.classList.remove("hide");
+      oMark.classList.add("show");
+    } else {
+      xMark.classList.remove("hide");
+      xMark.classList.add("show");
+    }
   };
 
   const spaces = document.querySelectorAll(".space");
@@ -91,11 +103,30 @@ const displayController = (function () {
   spaces.forEach((space, index) => {
     space.id = "space-" + index;
 
-    space.addEventListener("click", () => updateGameState(index));
+    let xMark = document.createElement("object");
+    let oMark = document.createElement("object");
+
+    xMark.setAttribute("type", "image/svg+xml");
+    xMark.setAttribute("data", "./img/x.svg");
+    xMark.setAttribute("width", "37");
+    xMark.setAttribute("height", "37");
+    xMark.classList.add("mark");
+    xMark.classList.add("hide");
+
+    space.appendChild(xMark);
+
+    oMark.setAttribute("type", "image/svg+xml");
+    oMark.setAttribute("data", "./img/o.svg");
+    oMark.setAttribute("width", "37");
+    oMark.setAttribute("height", "37");
+    oMark.classList.add("mark");
+    oMark.classList.add("hide");
+
+    space.appendChild(oMark);
+
+    space.addEventListener("click", () => {
+      gameBoard.updateGameState(index);
+      updateDisplay(oMark, xMark);
+    });
   });
 })();
-
-console.log(player1);
-console.log(player2);
-
-console.log(gameBoard.getCurrentPlayer());
