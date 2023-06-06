@@ -1,6 +1,17 @@
+const createPlayer = (name, mark) => {
+  return {
+    name,
+    mark,
+    score: 0,
+  };
+};
+
+const player1 = createPlayer("Jeff", "x");
+const player2 = createPlayer("Tom", "o");
+
 const gameBoard = (function () {
   const board = new Array(9).fill(null);
-  let tieScore = 0;
+  let currentPlayer = player1;
 
   const isWin = (mark) => {
     const winConditions = [
@@ -24,21 +35,25 @@ const gameBoard = (function () {
     return false;
   };
 
+  const isTie = (mark) => {
+    const win = isWin(mark);
+    return board.every((item) => item !== null) && !win;
+  };
+
+  const getCurrentPlayer = () => currentPlayer;
+  const getBoard = () => board;
+
+  const changeTurns = () => {
+    currentPlayer = currentPlayer === player1 ? player2 : player1;
+  };
+
   const reset = () => {
     board.fill(null);
   };
 
-  const getBoard = () => {
-    return board;
-  };
-
-  const changeTurns = () => {
-    player1.isTurn = !player1.isTurn;
-    player2.isTurn = !player2.isTurn;
-  };
-
   const isLegalMove = (player, space) => {
-    return player.isTurn === true && board[space] === null;
+    const playerTurn = getCurrentPlayer();
+    return playerTurn === player && board[space] === null;
   };
 
   const placeMark = (player, space) => {
@@ -50,59 +65,38 @@ const gameBoard = (function () {
         changeTurns();
       } else {
         player.score++;
-        reset();
       }
     }
   };
 
   return {
-    board,
-    isWin,
-    reset,
-    placeMark,
-    changeTurns,
     getBoard,
-    isLegalMove,
-    tieScore,
+    getCurrentPlayer,
+    placeMark,
+    isWin,
+    isTie,
+    reset,
   };
 })();
-
-const createPlayer = (name, mark) => {
-  const isTurn = false;
-  const score = 0;
-
-  return {
-    name,
-    mark,
-    isTurn,
-    score,
-  };
-};
-
-const getPlayerTurn = () => {
-  if (player1.isTurn) {
-    return player1;
-  } else {
-    return player2;
-  }
-};
-
-const player1 = createPlayer("Jeff", "x");
-const player2 = createPlayer("Tom", "o");
-player1.isTurn = true;
 
 const displayController = (function () {
+  const placeMark = (space, index) => {
+    const board = gameBoard.getBoard();
+    const currentPlayer = gameBoard.getCurrentPlayer();
+    gameBoard.placeMark(currentPlayer, index);
+    space.textContent = board[index];
+  };
+
   const spaces = document.querySelectorAll(".space");
 
-  spaces.forEach((item, index) => {
-    item.id = "space-" + index;
+  spaces.forEach((space, index) => {
+    space.id = "space-" + index;
 
-    item.addEventListener("click", function () {
-      if (getPlayerTurn() === player1) {
-        gameBoard.placeMark(getPlayerTurn(), index);
-        item.textContent = gameBoard.board[index];
-      } else gameBoard.placeMark(getPlayerTurn(), index);
-      item.textContent = gameBoard.board[index];
-    });
+    space.addEventListener("click", () => placeMark(space, index));
   });
 })();
+
+console.log(player1);
+console.log(player2);
+
+console.log(gameBoard.getCurrentPlayer());
