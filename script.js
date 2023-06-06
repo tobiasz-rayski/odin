@@ -41,6 +41,7 @@ const gameBoard = (function () {
   };
 
   const getCurrentPlayer = () => currentPlayer;
+
   const getBoard = () => board;
 
   const changeTurns = () => {
@@ -80,11 +81,9 @@ const gameBoard = (function () {
 })();
 
 const displayController = (function () {
-  const placeMark = (space, index) => {
-    const board = gameBoard.getBoard();
+  const updateGameState = (index) => {
     const currentPlayer = gameBoard.getCurrentPlayer();
     gameBoard.placeMark(currentPlayer, index);
-    space.textContent = board[index];
   };
 
   const spaces = document.querySelectorAll(".space");
@@ -92,7 +91,7 @@ const displayController = (function () {
   spaces.forEach((space, index) => {
     space.id = "space-" + index;
 
-    space.addEventListener("click", () => placeMark(space, index));
+    space.addEventListener("click", () => updateGameState(index));
   });
 })();
 
