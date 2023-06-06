@@ -1,5 +1,6 @@
 const gameBoard = (function () {
   const board = new Array(9).fill(null);
+  let tieScore = 0;
 
   const isWin = (mark) => {
     const winConditions = [
@@ -17,12 +18,8 @@ const gameBoard = (function () {
       arr.every((index) => board.at(index) === mark)
     );
 
-    let full = board.every((item) => item !== null);
-
     if (win) {
       return true;
-    } else if (full && !win) {
-      console.log("TIE");
     }
     return false;
   };
@@ -31,20 +28,29 @@ const gameBoard = (function () {
     board.fill(null);
   };
 
+  const getBoard = () => {
+    return board;
+  };
+
   const changeTurns = () => {
     player1.isTurn = !player1.isTurn;
     player2.isTurn = !player2.isTurn;
   };
 
-  const placeMark = (player, space) => {
-    const isLegalMove = player.isTurn === true && board[space] === null;
+  const isLegalMove = (player, space) => {
+    return player.isTurn === true && board[space] === null;
+  };
 
-    if (isLegalMove) {
+  const placeMark = (player, space) => {
+    const moveIsLegal = isLegalMove(player, space);
+
+    if (moveIsLegal) {
       board[space] = player.mark;
       if (!isWin(player.mark)) {
         changeTurns();
       } else {
         player.score++;
+        reset();
       }
     }
   };
@@ -55,6 +61,9 @@ const gameBoard = (function () {
     reset,
     placeMark,
     changeTurns,
+    getBoard,
+    isLegalMove,
+    tieScore,
   };
 })();
 
@@ -91,9 +100,9 @@ const displayController = (function () {
     item.addEventListener("click", function () {
       if (getPlayerTurn() === player1) {
         gameBoard.placeMark(getPlayerTurn(), index);
-        item.textContent = gameBoard.board[index].toUpperCase();
+        item.textContent = gameBoard.board[index];
       } else gameBoard.placeMark(getPlayerTurn(), index);
-      item.textContent = gameBoard.board[index].toUpperCase();
+      item.textContent = gameBoard.board[index];
     });
   });
 })();
