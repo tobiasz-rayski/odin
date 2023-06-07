@@ -12,8 +12,13 @@ const player2 = createPlayer("Tom", "o");
 const gameBoard = (function () {
   const board = new Array(9).fill(null);
   let currentPlayer = player1;
+  let tieScore = 0;
 
-  const isWin = (mark) => {
+  const getCurrentPlayer = () => currentPlayer;
+  const getBoard = () => board;
+
+  const isWin = () => {
+    const currentPlayer = getCurrentPlayer();
     const winConditions = [
       [0, 1, 2],
       [3, 4, 5],
@@ -26,7 +31,7 @@ const gameBoard = (function () {
     ];
 
     let win = winConditions.some((arr) =>
-      arr.every((index) => board.at(index) === mark)
+      arr.every((index) => board.at(index) === currentPlayer.mark)
     );
 
     if (win) {
@@ -35,14 +40,20 @@ const gameBoard = (function () {
     return false;
   };
 
-  const isTie = (mark) => {
-    const win = isWin(mark);
-    return board.every((item) => item !== null) && !win;
+  const isTie = () => {
+    if (board.every((item) => item !== null)) {
+      return true;
+    }
+    return false;
   };
 
-  const getCurrentPlayer = () => currentPlayer;
+  const isLegalMove = (space) => {
+    return board[space] === null && !isGameOver();
+  };
 
-  const getBoard = () => board;
+  const placeMark = (space) => {
+    if (isLegalMove(space)) board[space] = currentPlayer.mark;
+  };
 
   const changeTurns = () => {
     currentPlayer = currentPlayer === player1 ? player2 : player1;
@@ -52,53 +63,65 @@ const gameBoard = (function () {
     board.fill(null);
   };
 
-  const isLegalMove = (player, space) => {
-    const playerTurn = getCurrentPlayer();
-    return playerTurn === player && board[space] === null;
+  const addPlayerScore = () => {
+    currentPlayer.score++;
   };
 
-  const placeMark = (player, space) => {
-    const moveIsLegal = isLegalMove(player, space);
+  const addTieScore = () => {
+    tieScore++;
+  };
 
-    if (moveIsLegal) {
-      board[space] = player.mark;
-      if (!isWin(player.mark)) {
-        changeTurns();
-      } else {
-        player.score++;
-      }
+  const isGameOver = () => {
+    if (isWin()) {
+      addPlayerScore();
+      return true;
+    } else if (isTie()) {
+      addTieScore();
+      return true;
     }
+    return false;
   };
 
-  const updateGameState = (index) => {
-    const currentPlayer = gameBoard.getCurrentPlayer();
-    gameBoard.placeMark(currentPlayer, index);
-  };
+  const getTieScore = () => tieScore;
 
   return {
-    getBoard,
-    getCurrentPlayer,
-    updateGameState,
-    placeMark,
     isWin,
     isTie,
+    addPlayerScore,
+    addTieScore,
+    getBoard,
+    getCurrentPlayer,
+    placeMark,
+    isGameOver,
+    changeTurns,
+    tieScore,
+    getTieScore,
+    isLegalMove,
     reset,
   };
 })();
 
 const displayController = (function () {
-  const updateDisplay = (oMark, xMark) => {
+  const gameLog = document.getElementById("log");
+  const spaces = document.querySelectorAll(".space");
+
+  const displayMessage = () => {
     const currentPlayer = gameBoard.getCurrentPlayer();
-    if (currentPlayer === player1) {
-      oMark.classList.remove("hide");
-      oMark.classList.add("show");
-    } else {
-      xMark.classList.remove("hide");
-      xMark.classList.add("show");
-    }
+    gameLog.textContent = `${currentPlayer.name} wins!`;
   };
 
-  const spaces = document.querySelectorAll(".space");
+  const updateDisplay = (xMark, oMark) => {
+    const currentPlayer = gameBoard.getCurrentPlayer();
+    if (!gameBoard.isGameOver()) {
+      if (currentPlayer === player1) {
+        xMark.classList.remove("hide");
+        xMark.classList.add("show");
+      } else {
+        oMark.classList.remove("hide");
+        oMark.classList.add("show");
+      }
+    }
+  };
 
   spaces.forEach((space, index) => {
     space.id = "space-" + index;
@@ -125,8 +148,21 @@ const displayController = (function () {
     space.appendChild(oMark);
 
     space.addEventListener("click", () => {
-      gameBoard.updateGameState(index);
-      updateDisplay(oMark, xMark);
+      updateDisplay(xMark, oMark);
+      gameBoard.placeMark(index);
+      if (gameBoard.isGameOver()) {
+        displayMessage();
+      }
+      gameBoard.changeTurns();
+
+      // console logs for testing
+
+      console.log(gameBoard.getBoard());
+      console.log(player1);
+      console.log(player2);
+      console.log(gameBoard.getCurrentPlayer());
+
+      // console logs for testing
     });
   });
 })();
