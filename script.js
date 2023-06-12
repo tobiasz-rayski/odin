@@ -50,7 +50,7 @@ const gameBoard = (function () {
   };
 
   const isLegalMove = (space) => {
-    return board[space] === null && gameOn;
+    return board[space] === null && gameOn === true;
   };
 
   const placeMark = (space) => {
@@ -73,7 +73,15 @@ const gameBoard = (function () {
     tieScore++;
   };
 
+  const stopGame = () => {
+    gameOn = false;
+  };
+
+  const isGameOn = () => gameOn;
+
   return {
+    isGameOn,
+    stopGame,
     isWin,
     isTie,
     addPlayerScore,
@@ -86,6 +94,8 @@ const gameBoard = (function () {
     getTieScore,
     isLegalMove,
     reset,
+    gameOn,
+    board,
   };
 })();
 
@@ -134,10 +144,14 @@ const displayController = (function () {
     space.appendChild(oMark);
 
     space.addEventListener("click", () => {
-      const currentPlayer = gameBoard.getCurrentPlayer();
-      const tieScore = gameBoard.getTieScore();
+      const gameOn = gameBoard.isGameOn();
+      const moveIsLegal = gameBoard.isLegalMove(index);
 
-      if (gameBoard.isLegalMove(index)) {
+      if (!gameOn) {
+        return;
+      }
+
+      if (moveIsLegal) {
         gameBoard.placeMark(index);
         updateDisplay(xMark, oMark);
 
@@ -145,10 +159,11 @@ const displayController = (function () {
         const tie = gameBoard.isTie();
 
         if (win) {
-          currentPlayer.score++;
-          gameBoard.gameOn = !gameBoard.gameOn;
+          gameBoard.addPlayerScore();
+          gameBoard.stopGame();
         } else if (tie) {
-          tieScore++;
+          gameBoard.addTieScore();
+          gameBoard.stopGame();
         } else {
           gameBoard.changeTurns();
         }
@@ -158,6 +173,7 @@ const displayController = (function () {
       console.log(player1);
       console.log(player2);
       console.log(gameBoard.getCurrentPlayer());
+      console.log(gameBoard.isGameOn());
     });
   });
 })();
