@@ -13,12 +13,13 @@ const gameBoard = (function () {
   const board = new Array(9).fill(null);
   let currentPlayer = player1;
   let tieScore = 0;
+  let gameOn = true;
 
   const getCurrentPlayer = () => currentPlayer;
   const getBoard = () => board;
+  const getTieScore = () => tieScore;
 
   const isWin = () => {
-    const currentPlayer = getCurrentPlayer();
     const winConditions = [
       [0, 1, 2],
       [3, 4, 5],
@@ -30,7 +31,7 @@ const gameBoard = (function () {
       [2, 4, 6],
     ];
 
-    let win = winConditions.some((arr) =>
+    const win = winConditions.some((arr) =>
       arr.every((index) => board.at(index) === currentPlayer.mark)
     );
 
@@ -41,18 +42,19 @@ const gameBoard = (function () {
   };
 
   const isTie = () => {
-    if (board.every((item) => item !== null)) {
+    const win = isWin();
+    if (board.every((item) => item !== null && !win)) {
       return true;
     }
     return false;
   };
 
   const isLegalMove = (space) => {
-    return board[space] === null && !isGameOver();
+    return board[space] === null && gameOn;
   };
 
   const placeMark = (space) => {
-    if (isLegalMove(space)) board[space] = currentPlayer.mark;
+    board[space] = currentPlayer.mark;
   };
 
   const changeTurns = () => {
@@ -71,19 +73,6 @@ const gameBoard = (function () {
     tieScore++;
   };
 
-  const isGameOver = () => {
-    if (isWin()) {
-      addPlayerScore();
-      return true;
-    } else if (isTie()) {
-      addTieScore();
-      return true;
-    }
-    return false;
-  };
-
-  const getTieScore = () => tieScore;
-
   return {
     isWin,
     isTie,
@@ -92,7 +81,6 @@ const gameBoard = (function () {
     getBoard,
     getCurrentPlayer,
     placeMark,
-    isGameOver,
     changeTurns,
     tieScore,
     getTieScore,
@@ -112,14 +100,12 @@ const displayController = (function () {
 
   const updateDisplay = (xMark, oMark) => {
     const currentPlayer = gameBoard.getCurrentPlayer();
-    if (!gameBoard.isGameOver()) {
-      if (currentPlayer === player1) {
-        xMark.classList.remove("hide");
-        xMark.classList.add("show");
-      } else {
-        oMark.classList.remove("hide");
-        oMark.classList.add("show");
-      }
+    if (currentPlayer === player1) {
+      xMark.classList.remove("hide");
+      xMark.classList.add("show");
+    } else {
+      oMark.classList.remove("hide");
+      oMark.classList.add("show");
     }
   };
 
@@ -148,21 +134,30 @@ const displayController = (function () {
     space.appendChild(oMark);
 
     space.addEventListener("click", () => {
-      updateDisplay(xMark, oMark);
-      gameBoard.placeMark(index);
-      if (gameBoard.isGameOver()) {
-        displayMessage();
-      }
-      gameBoard.changeTurns();
+      const currentPlayer = gameBoard.getCurrentPlayer();
+      const tieScore = gameBoard.getTieScore();
 
-      // console logs for testing
+      if (gameBoard.isLegalMove(index)) {
+        gameBoard.placeMark(index);
+        updateDisplay(xMark, oMark);
+
+        const win = gameBoard.isWin();
+        const tie = gameBoard.isTie();
+
+        if (win) {
+          currentPlayer.score++;
+          gameBoard.gameOn = !gameBoard.gameOn;
+        } else if (tie) {
+          tieScore++;
+        } else {
+          gameBoard.changeTurns();
+        }
+      }
 
       console.log(gameBoard.getBoard());
       console.log(player1);
       console.log(player2);
       console.log(gameBoard.getCurrentPlayer());
-
-      // console logs for testing
     });
   });
 })();
