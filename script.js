@@ -11,13 +11,17 @@ const player2 = createPlayer("Tom", "o");
 
 const gameBoard = (function () {
   const board = new Array(9).fill(null);
-  let currentPlayer = player1;
+  let currentPlayer = player1.score > player2.score ? player2 : player1;
   let tieScore = 0;
   let gameOn = true;
 
   const getCurrentPlayer = () => currentPlayer;
   const getBoard = () => board;
   const getTieScore = () => tieScore;
+
+  const setCurrentPlayer = () => {
+    currentPlayer = player1.score > player2.score ? player2 : player1;
+  };
 
   const isWin = () => {
     const winConditions = [
@@ -92,6 +96,7 @@ const gameBoard = (function () {
     placeMark,
     changeTurns,
     getTieScore,
+    setCurrentPlayer,
     isLegalMove,
     reset,
   };
@@ -224,6 +229,8 @@ const displayController = (function () {
     gameBoard.reset();
     displayReset();
     toggleModal();
+    gameBoard.setCurrentPlayer();
+    toggleTurns();
   };
 
   resetBtn.onclick = () => {
