@@ -72,6 +72,7 @@ body {
 #scores {
   flex-direction: row;
   gap: 4rem;
+  width: 100%;
 }
 
 .show {
@@ -119,4 +120,8 @@ body {
   width: fit-content;
   display: flex;
   justify-content: center;
+}
+
+.turn-toggle {
+  width: 1rem;
 }

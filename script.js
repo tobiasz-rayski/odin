@@ -105,6 +105,21 @@ const displayController = (function () {
   const spaces = document.querySelectorAll(".space");
   const playerOneScore = document.getElementById("player-1-score");
   const playerTwoScore = document.getElementById("player-2-score");
+  const turnOne = document.getElementById("turn-1");
+  const turnTwo = document.getElementById("turn-2");
+
+  const toggleTurns = () => {
+    currentPlayer = gameBoard.getCurrentPlayer();
+    if (currentPlayer === player1) {
+      turnOne.textContent = "🟢";
+      turnTwo.textContent = "";
+    } else if (currentPlayer === player2) {
+      turnOne.textContent = "";
+      turnTwo.textContent = "🟢";
+    }
+  };
+
+  toggleTurns();
 
   const toggleModal = () => {
     modal.classList.toggle("hide");
@@ -197,6 +212,7 @@ const displayController = (function () {
           gameBoard.stopGame();
         } else {
           gameBoard.changeTurns();
+          toggleTurns();
         }
       }
     });
@@ -210,7 +226,7 @@ const displayController = (function () {
     toggleModal();
   };
 
-  reset.onclick = () => {
+  resetBtn.onclick = () => {
     gameBoard.reset();
     displayReset();
     player1.score = 0;
