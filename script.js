@@ -91,18 +91,24 @@ const gameBoard = (function () {
     getCurrentPlayer,
     placeMark,
     changeTurns,
-    tieScore,
     getTieScore,
     isLegalMove,
     reset,
-    gameOn,
-    board,
   };
 })();
 
 const displayController = (function () {
+  const playAgainBtn = document.getElementById("play-again");
+  const modal = document.getElementById("modal");
   const gameLog = document.getElementById("log");
   const spaces = document.querySelectorAll(".space");
+  const playerOneScore = document.getElementById("player-1-score");
+  const playerTwoScore = document.getElementById("player-2-score");
+
+  const toggleModal = () => {
+    modal.classList.toggle("hide");
+    modal.classList.toggle("show");
+  };
 
   const displayMsgWin = () => {
     const currentPlayer = gameBoard.getCurrentPlayer();
@@ -124,7 +130,19 @@ const displayController = (function () {
     }
   };
 
-  const updateScore = () => {};
+  const updateScore = () => {
+    playerOneScore.textContent = player1.score;
+    playerTwoScore.textContent = player2.score;
+  };
+
+  const displayReset = () => {
+    gameLog.textContent = "";
+
+    marks.forEach((mark) => {
+      mark.classList.remove("show");
+      mark.classList.add("hide");
+    });
+  };
 
   spaces.forEach((space, index) => {
     space.id = "space-" + index;
@@ -167,22 +185,27 @@ const displayController = (function () {
 
         if (win) {
           gameBoard.addPlayerScore();
+          updateScore();
           displayMsgWin();
+          toggleModal();
           gameBoard.stopGame();
         } else if (tie) {
           gameBoard.addTieScore();
           displayMsgTie();
+          toggleModal();
           gameBoard.stopGame();
         } else {
           gameBoard.changeTurns();
         }
       }
-
-      console.log(gameBoard.getBoard());
-      console.log(player1);
-      console.log(player2);
-      console.log(gameBoard.getCurrentPlayer());
-      console.log(gameBoard.isGameOn());
     });
   });
+
+  const marks = document.querySelectorAll(".mark");
+
+  playAgainBtn.onclick = () => {
+    gameBoard.reset();
+    displayReset();
+    toggleModal();
+  };
 })();

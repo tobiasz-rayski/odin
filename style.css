@@ -75,16 +75,11 @@ body {
 }
 
 .show {
-  transform: scale(1);
+  display: block;
 }
 
 .hide {
   display: none;
-  transform: scale(0);
-}
-
-.mark {
-  transition: transform 0.2s ease-in-out;
 }
 
 .player-score {
@@ -100,4 +95,28 @@ body {
   position: absolute;
   bottom: 1rem;
   right: 1rem;
+}
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modal-content {
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin: 15% auto;
+  padding: 1rem;
+  width: fit-content;
+  display: flex;
+  justify-content: center;
 }
