@@ -62,6 +62,7 @@ const gameBoard = (function () {
   };
 
   const reset = () => {
+    gameOn = true;
     board.fill(null);
   };
 

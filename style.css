@@ -42,6 +42,15 @@ body {
   align-items: center;
 }
 
+.container-col {
+  display: flex;
+  flex-direction: column;
+  border-radius: 2rem;
+  padding: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
 .space {
   display: flex;
   width: 50px;
@@ -76,4 +85,9 @@ body {
 
 .mark {
   transition: transform 0.2s ease-in-out;
+}
+
+.player-score {
+  font-size: 1.5rem;
+  font-weight: 500;
 }
