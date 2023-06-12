@@ -99,6 +99,7 @@ const gameBoard = (function () {
 
 const displayController = (function () {
   const playAgainBtn = document.getElementById("play-again");
+  const resetBtn = document.getElementById("reset");
   const modal = document.getElementById("modal");
   const gameLog = document.getElementById("log");
   const spaces = document.querySelectorAll(".space");
@@ -207,5 +208,13 @@ const displayController = (function () {
     gameBoard.reset();
     displayReset();
     toggleModal();
+  };
+
+  reset.onclick = () => {
+    gameBoard.reset();
+    displayReset();
+    player1.score = 0;
+    player2.score = 0;
+    updateScore();
   };
 })();
