@@ -36,7 +36,6 @@ body {
 .container {
   display: flex;
   flex-direction: inherit;
-  border-radius: 2rem;
   padding: 1rem;
   justify-content: center;
   align-items: center;
@@ -45,7 +44,6 @@ body {
 .container-col {
   display: flex;
   flex-direction: column;
-  border-radius: 2rem;
   padding: 0.5rem;
   justify-content: center;
   align-items: center;
@@ -57,9 +55,11 @@ body {
   height: 50px;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 #container-main {
+  position: relative;
   margin-top: 2rem;
   background-color: var(--background-two);
   width: 600px;
@@ -90,4 +90,14 @@ body {
 .player-score {
   font-size: 1.5rem;
   font-weight: 500;
+}
+
+#log {
+  height: 3rem;
+}
+
+#reset {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
 }

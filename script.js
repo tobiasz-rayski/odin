@@ -104,9 +104,13 @@ const displayController = (function () {
   const gameLog = document.getElementById("log");
   const spaces = document.querySelectorAll(".space");
 
-  const displayMessage = () => {
+  const displayMsgWin = () => {
     const currentPlayer = gameBoard.getCurrentPlayer();
     gameLog.textContent = `${currentPlayer.name} wins!`;
+  };
+
+  const displayMsgTie = () => {
+    gameLog.textContent = `It's a TIE!`;
   };
 
   const updateDisplay = (xMark, oMark) => {
@@ -119,6 +123,8 @@ const displayController = (function () {
       oMark.classList.add("show");
     }
   };
+
+  const updateScore = () => {};
 
   spaces.forEach((space, index) => {
     space.id = "space-" + index;
@@ -161,9 +167,11 @@ const displayController = (function () {
 
         if (win) {
           gameBoard.addPlayerScore();
+          displayMsgWin();
           gameBoard.stopGame();
         } else if (tie) {
           gameBoard.addTieScore();
+          displayMsgTie();
           gameBoard.stopGame();
         } else {
           gameBoard.changeTurns();
