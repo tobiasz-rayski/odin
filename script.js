@@ -11,7 +11,7 @@ const player2 = createPlayer("Tom", "o");
 
 const gameBoard = (function () {
   const board = new Array(9).fill(null);
-  let currentPlayer = player1.score > player2.score ? player2 : player1;
+  let currentPlayer = Math.random() < 0.5 ? player1 : player2;
   let tieScore = 0;
   let gameOn = true;
 
